@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Check if necessary dependencies are available
+for cmd in ip macchanger sudo; do
+    if ! command -v $cmd &> /dev/null; then
+        echo "[!] $cmd is not installed. Please install it to proceed."
+        exit 1
+    fi
+done
+
+# Auto-detect primary network interface
+IFACE=$(ip route | grep default | awk '{print $5}' | head -n 1)
+
+# Exit if no interface found
+if [ -z "$IFACE" ]; then
+  echo "[!] No active network interface found."
+  exit 1
+fi
+
+# Generate a random hostname
+RAND_HOST="host-$(tr -dc a-z0-9 </dev/urandom | head -c 6)"
+
+echo "[*] Spoofing MAC address on $IFACE ..."
+sudo ip link set $IFACE down
+sudo macchanger -r $IFACE
+sudo ip link set $IFACE up
+
+echo "[*] Changing hostname to: $RAND_HOST"
+echo $RAND_HOST | sudo tee /etc/hostname
+sudo hostname $RAND_HOST
+
+echo "[*] Completed MAC and Hostname change."
+echo "[*] Current MAC address:"
+ip link show $IFACE | grep ether
+echo "[*] Current Hostname:"
+hostname                

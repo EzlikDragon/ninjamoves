@@ -1,0 +1,10 @@
+Package: ninjamoves
+Version: 1.0
+Architecture: amd64
+Maintainer: EzlikDragon | SlickLab <nd.montederamos@gmail.com>
+Installed-Size: 2048
+Depends: sudo, iproute2, macchanger
+Section: utils
+Priority: optional
+Description: A tool for network anonymity, MAC address spoofing, and hostname changing.
+Commercial License: Please contact us at [nd.montederamos@gmail.com] for commercial licensing details.
