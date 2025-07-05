@@ -95,8 +95,3 @@ Edit
 [*] Spoofing MAC address on eth0 ...
 [*] Changing hostname to: host-abc123
 
-RUN IT
-
-cd /media/sf_KALI_SHARED/NinjaMoves/usr/bin/
-
-ninjamoves
